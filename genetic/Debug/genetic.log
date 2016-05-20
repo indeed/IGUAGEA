@@ -1,8 +1,3 @@
-﻿  genetic.cpp
-d:\dev\ics4u\genetic\genetic\genetic\genetic.cpp(9): error C2440: 'initializing': cannot convert from 'int (__thiscall cimg_library::CImg<unsigned char>::* )(void) const' to 'unsigned int'
-  d:\dev\ics4u\genetic\genetic\genetic\genetic.cpp(9): note: There is no context in which this conversion is possible
-d:\dev\ics4u\genetic\genetic\genetic\genetic.cpp(10): error C3867: 'cimg_library::CImg<unsigned char>::height': non-standard syntax; use '&' to create a pointer to member
-d:\dev\ics4u\genetic\genetic\genetic\genetic.cpp(10): error C2446: '<': no conversion from 'int (__thiscall cimg_library::CImg<unsigned char>::* )(void) const' to 'int'
-  d:\dev\ics4u\genetic\genetic\genetic\genetic.cpp(10): note: There is no context in which this conversion is possible
-d:\dev\ics4u\genetic\genetic\genetic\genetic.cpp(11): error C2440: 'initializing': cannot convert from 'int (__thiscall cimg_library::CImg<unsigned char>::* )(void) const' to 'unsigned int'
-  d:\dev\ics4u\genetic\genetic\genetic\genetic.cpp(11): note: There is no context in which this conversion is possible
+﻿  stdafx.cpp
+  genetic.cpp
+d:\dev\ics4u\iguagea\genetic\genetic.cpp(5): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory

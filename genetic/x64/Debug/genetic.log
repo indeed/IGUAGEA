@@ -1,0 +1,8 @@
+﻿  Individual.cpp
+  genetic.cpp
+d:\dev\ics4u\iguagea\genetic\genetic.cpp(25): warning C4018: '<': signed/unsigned mismatch
+d:\dev\ics4u\iguagea\genetic\genetic.cpp(26): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+d:\dev\ics4u\iguagea\genetic\individual.cpp(26): error C4716: 'Individual::getFitness': must return a value
+d:\dev\ics4u\iguagea\genetic\individual.cpp(19): error C4700: uninitialized local variable 'colorData' used
+d:\dev\ics4u\iguagea\genetic\individual.cpp(23): error C4700: uninitialized local variable 'fitness' used
