@@ -8,6 +8,7 @@
 #define G_FOODNUMBER 10
 #define G_TICKSPERSECOND 20
 #define FOOD_ID (255 * 256 * 256 + 255 * 256 + 255)
+#define MATH_HUGE 1000000000
 
 class Globals
 {

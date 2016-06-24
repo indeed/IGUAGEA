@@ -1,5 +1,1 @@
-﻿  Game.cpp
-d:\dev\ics4u\iguagea\genetic\game.cpp(101): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\dev\ics4u\iguagea\genetic\game.cpp(104): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\dev\ics4u\iguagea\genetic\game.cpp(228): warning C4715: 'Game::bestMove': not all control paths return a value
-  genetic.vcxproj -> D:\Dev\ICS4U\IGUAGEA\x64\Debug\competitivesnake.exe
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'd:\dev\ics4u\iguagea\genetic\x64\debug\vc140.pdb' because it is being used by another process.

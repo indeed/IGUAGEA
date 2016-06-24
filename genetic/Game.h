@@ -18,11 +18,10 @@ private:
 public:
 	Game();
 	sf::RenderWindow* getWindow();
-	std::array<std::array<int, G_HEIGHT>, G_WIDTH>* getBoard();
+	int getBoardPos(int x, int y);
 	void run();
 	void step();
 	void render();
 	void spawnFood();
-	Direction bestMove(int x, int y);
 	~Game();
 };

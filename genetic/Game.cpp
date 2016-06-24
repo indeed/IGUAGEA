@@ -20,18 +20,29 @@ sf::RenderWindow* Game::getWindow() {
 	return _gameWindow;
 }
 
-std::array<std::array<int, G_HEIGHT>, G_WIDTH>* Game::getBoard() {
-	return &_board;
+int Game::getBoardPos(int x, int y) {
+	if (Globals::withinBounds(x, y)) {
+		if (_board[x][y]) {
+			return _board[x][y];
+		}
+		else {
+			return 0;
+		}
+	}
+	else {
+		return 1;
+	}
 }
 
 void Game::run() {
 
 	_gameWindow->setFramerateLimit(G_TICKSPERSECOND);
+	Ai::attachGame(this);
 
 	for (int i = 0; i < G_FOODNUMBER; i++) {
 		spawnFood();
 	}
-	
+
 	// Main game window loop
 	while (_gameWindow->isOpen())
 	{
@@ -46,19 +57,24 @@ void Game::run() {
 				switch (event.key.code) {
 				case sf::Keyboard::W:
 					if (_inputDirection != Direction::DOWN)
-					_inputDirection = Direction::UP;
+						_inputDirection = Direction::UP;
 					break;
 				case sf::Keyboard::S:
 					if (_inputDirection != Direction::UP)
-					_inputDirection = Direction::DOWN;
+						_inputDirection = Direction::DOWN;
 					break;
 				case sf::Keyboard::A:
 					if (_inputDirection != Direction::RIGHT)
-					_inputDirection = Direction::LEFT;
+						_inputDirection = Direction::LEFT;
 					break;
 				case sf::Keyboard::D:
 					if (_inputDirection != Direction::LEFT)
-					_inputDirection = Direction::RIGHT;
+						_inputDirection = Direction::RIGHT;
+					break;
+
+				case sf::Keyboard::Escape:
+					_gameWindow->close();
+					std::cout << "GAME EXITED";
 					break;
 				}
 			}
@@ -74,8 +90,8 @@ void Game::run() {
 void Game::render() {
 	_gameWindow->clear();
 	// Decorate food to make it stand out
-	sf::CircleShape decor(G_SCALE/2-2);
-	decor.setFillColor(sf::Color(250,120,100,160));
+	sf::CircleShape decor(G_SCALE / 2 - 2);
+	decor.setFillColor(sf::Color(250, 120, 100, 160));
 	sf::RectangleShape tile; // Rectangular tiles to copy and render over board
 	tile.setSize(sf::Vector2f(G_SCALE, G_SCALE));
 	tile.setOutlineColor(sf::Color(0, 0, 0, 150));
@@ -85,7 +101,7 @@ void Game::render() {
 		for (int j = 0; j < G_HEIGHT; j++) {
 			if (!Globals::withinBounds(i, j)) {
 				// Danger tiles
-				tile.setFillColor(sf::Color(0,0,0, 255));
+				tile.setFillColor(sf::Color(0, 0, 0, 255));
 			}
 			else if (_board[i][j] == 0) {
 				// Set to default dark grey if tile is empty
@@ -101,7 +117,7 @@ void Game::render() {
 			tile.setPosition(i * G_SCALE, j * G_SCALE);
 			_gameWindow->draw(tile);
 			if (_board[i][j] == FOOD_ID) {
-				decor.setPosition(i * G_SCALE+2, j * G_SCALE+2);
+				decor.setPosition(i * G_SCALE + 2, j * G_SCALE + 2);
 				_gameWindow->draw(decor);
 			}
 		}
@@ -121,12 +137,12 @@ void Game::step() {
 				_players[i]->move(_inputDirection);
 			}
 			else {
-				_players[i]->move(bestMove(headX, headY));
+				_players[i]->move(Ai::bestMove(headX, headY));
 			}
 
 			headX = _players[i]->getHeadPos()[0];
 			headY = _players[i]->getHeadPos()[1];
-			
+
 			// Check if player is within the game bounds
 			if (Globals::withinBounds(headX, headY) && (_board[headX][headY] == 0 || _board[headX][headY] == NULL || _board[headX][headY] == FOOD_ID)) {
 				if (_board[headX][headY] == FOOD_ID) {
@@ -142,6 +158,13 @@ void Game::step() {
 				}
 			}
 			else {
+				if (_players[i]->isHuman()) {
+					std::cout << "YOU HAVE DIED. ";
+				}
+				else {
+					std::cout << "A BOT DIED. ";
+				}
+				std::cout << "SCORE: " << _players[i]->getLength() << std::endl;
 				_players[i]->death();
 				for (int j = 0; j < _players[i]->getLength() - 1; j += 3) {
 					// Spawn food where player died
@@ -172,57 +195,6 @@ void Game::spawnFood() {
 		if (_board[x][y] == 0 || _board[x][y] == NULL) {
 			done = true;
 			_board[x][y] = FOOD_ID;
-		}
-	}
-}
-
-Direction Game::bestMove(int x, int y) {
-	/*_queue.push_back(xy{x, y});
-	while (!_queue.empty()) {
-	int i = _queue.size() - 1;
-	while (i >= 0) {
-	xy n = _queue[i];
-	_visited.push_back(n);
-	_queue.erase(_queue.begin());
-	i--;
-	}
-	}
-	return */
-
-	// Easy AI for now
-
-	// Semi RNG with a chance of making a mistake
-	for (int i = 0; i < 20; i++) {
-		int chosen = rand() % 4;
-		switch (chosen) {
-		case 0:
-			if (y > 0) {
-				if ((_board)[x][y - 1] == 0 || (_board)[x][y - 1] == FOOD_ID || (_board)[x][y - 1] == NULL) {
-					return Direction::UP;
-				}
-			}
-			break;
-		case 1:
-			if (y < G_HEIGHT) {
-				if ((_board)[x][y + 1] == 0 || (_board)[x][y + 1] == FOOD_ID || (_board)[x][y + 1] == NULL) {
-					return Direction::DOWN;
-				}
-			}
-			break;
-		case 2:
-			if (x > 0) {
-				if ((_board)[x - 1][y] == 0 || (_board)[x - 1][y] == FOOD_ID || (_board)[x - 1][y] == NULL) {
-					return Direction::LEFT;
-				}
-			}
-			break;
-		case 3:
-			if (x < G_WIDTH) {
-				if ((_board)[x + 1][y] == 0 || (_board)[x + 1][y] == FOOD_ID || (_board)[x + 1][y] == NULL) {
-					return Direction::RIGHT;
-				}
-			}
-			break;
 		}
 	}
 }
