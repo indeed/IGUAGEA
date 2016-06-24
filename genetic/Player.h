@@ -9,8 +9,10 @@ private:
 	int _headPos[2];
 public:
 	Player();
+	Player(int x, int y);
 	int getLength();
 	int* getHeadPos();
+	int getId();
 	~Player();
 };
 

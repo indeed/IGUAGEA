@@ -35,17 +35,27 @@ void Game::run() {
 
 void Game::render() {
 	_gameWindow->clear();
+
+	sf::RectangleShape tile; // Rectangular tiles to copy and render over board
+	tile.setSize(sf::Vector2f(_scale, _scale));
+	tile.setOutlineColor(sf::Color(0, 0, 0, 100));
+	tile.setOutlineThickness(-1);
+
 	for (int i = 0; i < G_WIDTH; i++) {
 		for (int j = 0; j < G_HEIGHT; j++) {
-			//if (_board[i][j] == 1) {
-			sf::RectangleShape tile;
-			tile.setSize(sf::Vector2f(_scale, _scale));
-			tile.setOutlineColor(sf::Color(255,255,255,50));
-			tile.setFillColor(sf::Color::Transparent);
-			tile.setOutlineThickness(-1);
-				tile.setPosition(i * _scale, j * _scale);
-				_gameWindow->draw(tile);
-			//}
+			if (_board[i][j] == 0) {
+				tile.setFillColor(sf::Color(32,32,32,255));
+				// Set to default dark grey if tile is empty
+			}
+			else {
+				tile.setFillColor(sf::Color(
+					_board[i][j]/(256*256),
+					(_board[i][j]/256) % (256),
+					_board[i][j] % 256, 255));
+				//Set color to BASE 256 encoded id of player on that tile
+			}
+			tile.setPosition(i * _scale, j * _scale);
+			_gameWindow->draw(tile);
 		}
 	}
 }

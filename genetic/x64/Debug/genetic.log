@@ -1,4 +1,2 @@
-﻿  Game.cpp
-d:\dev\ics4u\iguagea\genetic\game.cpp(42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\dev\ics4u\iguagea\genetic\game.cpp(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  genetic.vcxproj -> D:\Dev\ICS4U\IGUAGEA\x64\Debug\genetic.exe
+﻿Globals.obj : error LNK2001: unresolved external symbol "private: static class std::vector<int,class std::allocator<int> > Globals::_usedId" (?_usedId@Globals@@0V?$vector@HV?$allocator@H@std@@@std@@A)
+D:\Dev\ICS4U\IGUAGEA\x64\Debug\genetic.exe : fatal error LNK1120: 1 unresolved externals
