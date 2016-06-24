@@ -1,5 +1,4 @@
-﻿  Individual.cpp
-d:\dev\ics4u\iguagea\genetic\individual.cpp(63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\dev\ics4u\iguagea\genetic\individual.cpp(64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\dev\ics4u\iguagea\genetic\individual.cpp(65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Game.cpp
+d:\dev\ics4u\iguagea\genetic\game.cpp(42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\dev\ics4u\iguagea\genetic\game.cpp(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   genetic.vcxproj -> D:\Dev\ICS4U\IGUAGEA\x64\Debug\genetic.exe

@@ -5,14 +5,14 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "Simulation.h"
+#include "Game.h"
 #include <ctime>
 
 int main()
 {
 	std::srand(std::time(0));
-	Simulation sim;
-	sim.run();
+	Game game;
+	game.run();
 	return 0;
 }
 
