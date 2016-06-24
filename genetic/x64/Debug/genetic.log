@@ -1,1 +1,5 @@
-﻿
+﻿  Game.cpp
+d:\dev\ics4u\iguagea\genetic\game.cpp(101): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\dev\ics4u\iguagea\genetic\game.cpp(104): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\dev\ics4u\iguagea\genetic\game.cpp(228): warning C4715: 'Game::bestMove': not all control paths return a value
+  genetic.vcxproj -> D:\Dev\ICS4U\IGUAGEA\x64\Debug\competitivesnake.exe

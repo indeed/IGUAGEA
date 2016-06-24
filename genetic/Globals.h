@@ -5,8 +5,9 @@
 #define G_HEIGHT 48
 #define G_SCALE 12
 #define G_FOODVALUE 1
-#define G_FOODNUMBER 5
+#define G_FOODNUMBER 10
 #define G_TICKSPERSECOND 20
+#define FOOD_ID (255 * 256 * 256 + 255 * 256 + 255)
 
 class Globals
 {

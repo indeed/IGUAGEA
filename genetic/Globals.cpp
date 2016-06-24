@@ -23,7 +23,7 @@ int Globals::uniqueId() {
 
 // Check whether or not a tile coordinate is within the board limits
 bool Globals::withinBounds(int x, int y) {
-	if (x < 0 || y < 0 || x >= G_WIDTH || y >= G_HEIGHT) {
+	if (x < 1 || y < 1 || x >= G_WIDTH - 1 || y >= G_HEIGHT - 1) {
 		return false;
 	} else {
 		return true;

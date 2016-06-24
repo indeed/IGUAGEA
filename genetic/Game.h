@@ -5,8 +5,6 @@
 #include "Player.h"
 #include "Globals.h"
 
-#define FOOD_ID (255 * 256 * 256 + 255 * 256 + 255)
-
 class Game
 {
 private:
@@ -25,5 +23,6 @@ public:
 	void step();
 	void render();
 	void spawnFood();
+	Direction bestMove(int x, int y);
 	~Game();
 };

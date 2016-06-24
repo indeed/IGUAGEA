@@ -8,7 +8,7 @@ Player::Player(int x, int y) {
 	_id = Globals::uniqueId();
 	// Initialize 1-size snake
 	_length = 1;
-	if (Globals::withinBounds(x, y)) {
+	if (!Globals::withinBounds(x, y)) {
 		_headPos[0] = 0;
 		_headPos[1] = 0;
 	} else {
@@ -30,6 +30,14 @@ int Player::getId() {
 	return _id;
 }
 
+bool Player::isDead() {
+	return _isDead;
+}
+
+bool Player::isHuman() {
+	return _isHuman;
+}
+
 std::array<int,2> Player::getSegment(int i) {
 	if (i < _length) {
 		return _body[i];
@@ -45,6 +53,10 @@ void Player::addLength(int l) {
 	for (int i = 0; i < G_FOODVALUE; i++) {
 		_body.insert(_body.begin(), *_body.begin());
 	}
+}
+
+void Player::setHuman(bool n) {
+	_isHuman = n;
 }
 
 void Player::move(Direction dir) {
@@ -75,7 +87,6 @@ void Player::death() {
 	// KAPPA
 	//_length = 0;
 	_isDead = true;
-	_id = 256*256*8+256*8+8;
 }
 
 Player::~Player()
