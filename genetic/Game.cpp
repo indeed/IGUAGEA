@@ -4,16 +4,30 @@
 
 #include <iostream>
 
-Game::Game()
+
+Game::Game() : Game(4) {}
+
+Game::Game(int p)
 {
 	_board = { {0} };
 	_gameWindow = new sf::RenderWindow(sf::VideoMode(G_WIDTH * G_SCALE, G_HEIGHT * G_SCALE), "Competitive Snake");
 	// Create player character
-	_players.push_back(new Player(5, 5));
+	
+	_players.push_back(new Player(randomSafePos()[0], randomSafePos()[1]));
 	_players[0]->setHuman(true);
-	_players.push_back(new Player(5, 20));
-	_players.push_back(new Player(40, 5));
-	_players.push_back(new Player(40, 20));
+	for (int i = 0; i < p; i++) {
+		_players.push_back(new Player(randomSafePos()[0], randomSafePos()[1]));
+	}
+}
+
+std::array<int, 2> Game::randomSafePos() {
+	int x, y;
+	do {
+		x = 6 + rand() % (G_WIDTH - 12);
+		y = 6 + rand() % (G_HEIGHT - 12);
+	} while (_board[x][y] != NULL && _board[x][y] != 0);
+
+	return std::array<int, 2> {x, y};
 }
 
 sf::RenderWindow* Game::getWindow() {
@@ -90,8 +104,8 @@ void Game::run() {
 void Game::render() {
 	_gameWindow->clear();
 	// Decorate food to make it stand out
-	sf::CircleShape decor(G_SCALE / 2 - 2);
-	decor.setFillColor(sf::Color(250, 120, 100, 160));
+	sf::CircleShape decor(G_SCALE / 2 - 2, 4);
+	decor.setFillColor(sf::Color(0,0,0,100));
 	sf::RectangleShape tile; // Rectangular tiles to copy and render over board
 	tile.setSize(sf::Vector2f(G_SCALE, G_SCALE));
 	tile.setOutlineColor(sf::Color(0, 0, 0, 150));

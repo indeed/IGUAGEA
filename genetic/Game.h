@@ -17,11 +17,13 @@ private:
 	Direction _inputDirection = Direction::RIGHT;
 public:
 	Game();
+	Game(int p);
 	sf::RenderWindow* getWindow();
 	int getBoardPos(int x, int y);
 	void run();
 	void step();
 	void render();
 	void spawnFood();
+	std::array<int, 2> randomSafePos();
 	~Game();
 };

@@ -6,6 +6,7 @@ Player::Player() : Player(0, 0){}
 
 Player::Player(int x, int y) {
 	_id = Globals::uniqueId();
+
 	// Initialize 1-size snake
 	_length = 1;
 	if (!Globals::withinBounds(x, y)) {
@@ -57,6 +58,7 @@ void Player::addLength(int l) {
 
 void Player::setHuman(bool n) {
 	_isHuman = n;
+	if (n) _id = 256 * 256 * 250 + 256 * 64 + 42;
 }
 
 void Player::move(Direction dir) {
