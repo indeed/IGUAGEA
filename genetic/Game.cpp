@@ -9,6 +9,9 @@ Game::Game() : Game(4) {}
 
 Game::Game(int p)
 {
+	p = (p < 1) ? 1 : p;
+	p = (p > 10) ? 10 : p;
+
 	_board = { {0} };
 	_gameWindow = new sf::RenderWindow(sf::VideoMode(G_WIDTH * G_SCALE, G_HEIGHT * G_SCALE), "Competitive Snake");
 	// Create player character
@@ -88,7 +91,6 @@ void Game::run() {
 
 				case sf::Keyboard::Escape:
 					_gameWindow->close();
-					std::cout << "GAME EXITED";
 					break;
 				}
 			}

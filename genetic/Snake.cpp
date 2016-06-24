@@ -24,14 +24,17 @@ int main()
 	std::cout << "#..\\__/......\\+++++++++/.......\\++++++++/....#" << std::endl;
 	std::cout << "#...|.........~~~~~~~~~.........~~~~~~~~.....#" << std::endl;
 	std::cout << "#...^........................................#" << std::endl;
-	std::cout << "##############################################" << std::endl;
 
 	while (1) {
-		std::cout << "WELCOME TO COMPETITIVE SNAKE" << std::endl << std::endl;
-		std::cout << "ENTER NUMBER OF PLAYERS [4]: ";
+		std::cout << "##############################################" << std::endl;
+		std::cout << "#                                            #" << std::endl;
+		std::cout << "# WELCOME TO A REALLY COMPETITIVE SNAKE GAME #" << std::endl;
+		std::cout << "#                                            #" << std::endl;
+		std::cout << "##############################################" << std::endl << std::endl;
+		std::cout << "ENTER NUMBER OF PLAYERS [1 - 10]: ";
 		int players = 4;
 		std::cin >> players;
-		std::cout << std::endl << std::endl << "GAME STARTED!" << std::endl << "PRESS ESC TO EXIT CURRENT MATCH" << std::endl;
+		std::cout << std::endl << std::endl << "GAME STARTED!" << std::endl << "PRESS [ESC] TO EXIT CURRENT MATCH" << std::endl;
 		Game game(players);
 		game.run();
 		std::cout << "GAME ENDED!" << std::endl << std::endl;
