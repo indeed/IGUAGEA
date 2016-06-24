@@ -6,7 +6,7 @@
 Game::Game()
 {
 	_board = { {0} };
-	_gameWindow = new sf::RenderWindow(sf::VideoMode(G_WIDTH * _scale, G_HEIGHT * _scale), "Generated Image");
+	_gameWindow = new sf::RenderWindow(sf::VideoMode(G_WIDTH * G_SCALE, G_HEIGHT * G_SCALE), "Generated Image");
 	_players.push_back(new Player(20, 20));
 }
 
@@ -19,9 +19,13 @@ std::array<std::array<int, G_HEIGHT>, G_WIDTH>* Game::getBoard() {
 }
 
 void Game::run() {
-	_gameWindow->setFramerateLimit(24);
 
-	spawnFood();
+	_gameWindow->setFramerateLimit(G_TICKSPERSECOND);
+
+	for (int i = 0; i < G_FOODNUMBER; i++) {
+		spawnFood();
+	}
+	
 
 	while (_gameWindow->isOpen())
 	{
@@ -34,15 +38,19 @@ void Game::run() {
 			else if (event.type == sf::Event::KeyPressed) {
 				switch (event.key.code) {
 				case sf::Keyboard::W:
+					if (_inputDirection != Direction::DOWN)
 					_inputDirection = Direction::UP;
 					break;
 				case sf::Keyboard::S:
+					if (_inputDirection != Direction::UP)
 					_inputDirection = Direction::DOWN;
 					break;
 				case sf::Keyboard::A:
+					if (_inputDirection != Direction::RIGHT)
 					_inputDirection = Direction::LEFT;
 					break;
 				case sf::Keyboard::D:
+					if (_inputDirection != Direction::LEFT)
 					_inputDirection = Direction::RIGHT;
 					break;
 				}
@@ -56,10 +64,11 @@ void Game::run() {
 
 void Game::render() {
 	_gameWindow->clear();
-
+	sf::CircleShape decor(G_SCALE/2-2);
+	decor.setFillColor(sf::Color(250,120,100,160));
 	sf::RectangleShape tile; // Rectangular tiles to copy and render over board
-	tile.setSize(sf::Vector2f(_scale, _scale));
-	tile.setOutlineColor(sf::Color(0, 0, 0, 100));
+	tile.setSize(sf::Vector2f(G_SCALE, G_SCALE));
+	tile.setOutlineColor(sf::Color(0, 0, 0, 150));
 	tile.setOutlineThickness(-1);
 
 	for (int i = 0; i < G_WIDTH; i++) {
@@ -75,8 +84,12 @@ void Game::render() {
 					_board[i][j] % 256, 255));
 				//Set color to BASE 256 encoded id of player on that tile
 			}
-			tile.setPosition(i * _scale, j * _scale);
+			tile.setPosition(i * G_SCALE, j * G_SCALE);
 			_gameWindow->draw(tile);
+			if (_board[i][j] == FOOD_ID) {
+				decor.setPosition(i * G_SCALE+2, j * G_SCALE+2);
+				_gameWindow->draw(decor);
+			}
 		}
 	}
 }
@@ -93,7 +106,9 @@ void Game::step() {
 			if (_board[headX][headY] == FOOD_ID) {
 				_players[i]->addLength(G_FOODVALUE);
 				spawnFood();
-				std::cout << _players[i]->getLength();
+			}
+			else if (_board[headX][headY] != (0 || NULL)) {
+				_players[i]->death();
 			}
 			for (int j = 0; j < _players[i]->getLength(); j++) {
 				// Set each tile on the board to the corresponding player it belongs to
@@ -104,8 +119,15 @@ void Game::step() {
 			}
 		}
 		else {
-			_players[0]->setLength(0);
+			_players[i]->death();
+			for (int j = 0; j < _players[i]->getLength() - 1; j+=2) {
+				// Spawn food where player died
+				int x = (_players[i]->getSegment(j))[0];
+				int y = (_players[i]->getSegment(j))[1];
+				_board[x][y] = FOOD_ID;
+			}
 		}
+
 	}
 
 	for (int i = 0; i < G_WIDTH; i++) {

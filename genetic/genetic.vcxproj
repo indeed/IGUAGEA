@@ -160,7 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="genetic.cpp" />
+    <ClCompile Include="Snake.cpp" />
     <ClCompile Include="Genome.cpp" />
     <ClCompile Include="Individual.cpp" />
     <ClCompile Include="Player.cpp" />

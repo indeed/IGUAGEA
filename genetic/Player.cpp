@@ -48,29 +48,34 @@ void Player::addLength(int l) {
 }
 
 void Player::move(Direction dir) {
-	switch (dir) {
-	case Direction::UP:
-		_headPos[1] -= 1;
-		break;
-	case Direction::DOWN:
-		_headPos[1] += 1;
-		break;
-	case Direction::LEFT:
-		_headPos[0] -= 1;
-		break;
-	case Direction::RIGHT:
-		_headPos[0] += 1;
-		break;
-	}
-	// Move body segments forward and pop last element of the tail unless food has been eaten
-	_body.push_back(_headPos);
-	if (_body.size() > _length) {
-		_body.erase(_body.begin());
+	if (!_isDead) {
+		switch (dir) {
+		case Direction::UP:
+			_headPos[1] -= 1;
+			break;
+		case Direction::DOWN:
+			_headPos[1] += 1;
+			break;
+		case Direction::LEFT:
+			_headPos[0] -= 1;
+			break;
+		case Direction::RIGHT:
+			_headPos[0] += 1;
+			break;
+		}
+		// Move body segments forward and pop last element of the tail unless food has been eaten
+		_body.push_back(_headPos);
+		if (_body.size() > _length) {
+			_body.erase(_body.begin());
+		}
 	}
 }
 
 void Player::death() {
 	// KAPPA
+	//_length = 0;
+	_isDead = true;
+	_id = 256*256*8+256*8+8;
 }
 
 Player::~Player()

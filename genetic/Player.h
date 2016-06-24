@@ -10,6 +10,7 @@ private:
 	int _id;
 	std::array<int, 2> _headPos;
 	std::vector<std::array<int,2>> _body;
+	bool _isDead = false;
 public:
 	Player();
 	Player(int x, int y);

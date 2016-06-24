@@ -1,7 +1,1 @@
-﻿  genetic.cpp
-d:\dev\ics4u\iguagea\genetic\genetic.cpp(13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Game.cpp
-d:\dev\ics4u\iguagea\genetic\game.cpp(61): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\dev\ics4u\iguagea\genetic\game.cpp(78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-  genetic.vcxproj -> D:\Dev\ICS4U\IGUAGEA\x64\Debug\genetic.exe
+﻿
