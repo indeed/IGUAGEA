@@ -5,15 +5,19 @@
 #include "Player.h"
 #include "Globals.h"
 
+#define FOOD_ID (255 * 256 * 256 + 255 * 256 + 255)
+
 class Game
 {
 private:
 	sf::RenderWindow *_gameWindow;
 	sf::Image _source;
 	sf::Vector2u _size;
-	int _scale = 16;
+	int _scale = 12;
 	std::array<std::array<int, G_HEIGHT>, G_WIDTH> _board;
-	std::vector<Player> _players;
+	std::vector<Player*> _players;
+	std::vector<std::array<int, 2>> _food;
+	Direction _inputDirection = Direction::RIGHT;
 public:
 	Game();
 	sf::RenderWindow* getWindow();
@@ -21,5 +25,6 @@ public:
 	void run();
 	void step();
 	void render();
+	void spawnFood();
 	~Game();
 };

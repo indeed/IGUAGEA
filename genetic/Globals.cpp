@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Globals.h"
 
+std::vector<int> Globals::_usedId;
+
 int Globals::uniqueId() {
 	// Generate base 256 number for unique color "ID". Doesn't include 255, 255, 255 because white is for food.
 	int id;
@@ -12,8 +14,18 @@ int Globals::uniqueId() {
 			if (_usedId[i] == id) {
 				taken = true;
 			}
-		}
+		} 
 	}
-
+	// Add to vector of used ids so it is no longer reused
+	_usedId.push_back(id);
 	return id;
+}
+
+// Check whether or not a tile coordinate is within the board limits
+bool Globals::withinBounds(int x, int y) {
+	if (x < 0 || y < 0 || x >= G_WIDTH || y >= G_HEIGHT) {
+		return false;
+	} else {
+		return true;
+	}
 }
